@@ -1540,8 +1540,6 @@ main {
 
   .clients-item { min-width: calc(25% - 38px); }
 
-
-
   /**
    * PORTFOLIO
    */
@@ -1557,10 +1555,6 @@ main {
   .blog-banner-box { height: 230px; }
 
 }
-
-
-
-
 
 /**
  * responsive larger than 1250px screen
