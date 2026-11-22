@@ -1,82 +1,48 @@
-/*-----------------------------------*\
-  #style.css
-\*-----------------------------------*/
+/* ==========================================================
+   STYLE.CSS : le design du portfolio
+   Organisation : variables → reset → styles réutilisés →
+   sidebar → navbar → pages (à propos, CV, portfolio) →
+   adaptations aux grands écrans (responsive)
+
+   Approche "mobile first" : on écrit d'abord le style du
+   téléphone, puis des blocs @media l'adaptent aux écrans
+   plus larges (580px, 768px, 1024px, 1250px).
+   Base du template : codewithsadee (licence MIT).
+   ========================================================== */
 
 
-/**
- * copyright 2022 @codewithsadee
- */
-
-
-
-
-
-/*-----------------------------------*\
-  #CUSTOM PROPERTY
-\*-----------------------------------*/
-
+/* ==========================================================
+   1. VARIABLES
+   Une variable se déclare avec --nom et s'utilise avec var(--nom).
+   Avantage : changer une couleur ici la change partout.
+   ========================================================== */
 :root {
 
-  /**
-   * colors
-   */
+  /* ----- Dégradés ----- */
+  --bg-gradient-onyx: linear-gradient(to bottom right, hsl(240, 1%, 25%) 3%, hsl(0, 0%, 19%) 97%);
+  --bg-gradient-jet: linear-gradient(to bottom right, hsla(240, 1%, 18%, 0.251) 0%, hsla(240, 2%, 11%, 0) 100%), hsl(240, 2%, 13%);
+  --bg-gradient-yellow-1: linear-gradient(to bottom right, hsl(45, 100%, 71%) 0%, hsla(36, 100%, 69%, 0) 50%);
+  --bg-gradient-yellow-2: linear-gradient(135deg, hsla(45, 100%, 71%, 0.251) 0%, hsla(35, 100%, 68%, 0) 59.86%), hsl(240, 2%, 13%);
+  --border-gradient-onyx: linear-gradient(to bottom right, hsl(0, 0%, 25%) 0%, hsla(0, 0%, 25%, 0) 50%);
+  --text-gradient-yellow: linear-gradient(to right, hsl(45, 100%, 72%), hsl(35, 100%, 68%));
 
-  /* gradient */
-
-  --bg-gradient-onyx: linear-gradient(
-    to bottom right, 
-    hsl(240, 1%, 25%) 3%, 
-    hsl(0, 0%, 19%) 97%
-  );
-  --bg-gradient-jet: linear-gradient(
-    to bottom right, 
-    hsla(240, 1%, 18%, 0.251) 0%, 
-    hsla(240, 2%, 11%, 0) 100%
-  ), hsl(240, 2%, 13%);
-  --bg-gradient-yellow-1: linear-gradient(
-    to bottom right, 
-    hsl(45, 100%, 71%) 0%, 
-    hsla(36, 100%, 69%, 0) 50%
-  );
-  --bg-gradient-yellow-2: linear-gradient(
-    135deg, 
-    hsla(45, 100%, 71%, 0.251) 0%, 
-    hsla(35, 100%, 68%, 0) 59.86%
-  ), hsl(240, 2%, 13%);
-  --border-gradient-onyx: linear-gradient(
-    to bottom right, 
-    hsl(0, 0%, 25%) 0%, 
-    hsla(0, 0%, 25%, 0) 50%
-  );
-  --text-gradient-yellow: linear-gradient(
-    to right, 
-    hsl(45, 100%, 72%), 
-    hsl(35, 100%, 68%)
-  );
-
-  /* solid */
-
+  /* ----- Couleurs unies (format hsl : teinte, saturation, luminosité) ----- */
   --jet: hsl(0, 0%, 22%);
   --onyx: hsl(240, 1%, 17%);
   --eerie-black-1: hsl(240, 2%, 13%);
   --eerie-black-2: hsl(240, 2%, 12%);
-  --smoky-black: hsl(0, 0%, 7%);
+  --smoky-black: hsl(0, 0%, 7%);        /* fond de la page */
   --white-1: hsl(0, 0%, 100%);
   --white-2: hsl(0, 0%, 98%);
-  --orange-yellow-crayola: hsl(45, 100%, 72%);
+  --orange-yellow-crayola: hsl(45, 100%, 72%); /* couleur d'accent jaune */
   --vegas-gold: hsl(45, 54%, 58%);
   --light-gray: hsl(0, 0%, 84%);
-  --light-gray-70: hsla(0, 0%, 84%, 0.7);
-  --bittersweet-shimmer: hsl(0, 43%, 51%);
+  --light-gray-70: hsla(0, 0%, 84%, 0.7);      /* le 4e chiffre = transparence */
 
-  /**
-   * typography
-   */
-
-  /* font-family */
+  /* ----- Typographie ----- */
   --ff-poppins: 'Poppins', sans-serif;
 
-  /* font-size */
+  /* Tailles : ces variables sont redéfinies plus bas pour les grands écrans */
   --fs-1: 24px;
   --fs-2: 18px;
   --fs-3: 17px;
@@ -86,51 +52,43 @@
   --fs-7: 13px;
   --fs-8: 11px;
 
-  /* font-weight */
   --fw-300: 300;
   --fw-400: 400;
   --fw-500: 500;
   --fw-600: 600;
 
-  /**
-   * shadow
-   */
-  
+  /* ----- Ombres et transitions ----- */
   --shadow-1: -4px 8px 24px hsla(0, 0%, 0%, 0.25);
   --shadow-2: 0 16px 30px hsla(0, 0%, 0%, 0.25);
-  --shadow-3: 0 16px 40px hsla(0, 0%, 0%, 0.25);
-  --shadow-4: 0 25px 50px hsla(0, 0%, 0%, 0.15);
   --shadow-5: 0 24px 80px hsla(0, 0%, 0%, 0.25);
-
-  /**
-   * transition
-   */
 
   --transition-1: 0.25s ease;
   --transition-2: 0.5s ease-in-out;
-
 }
 
 
+/* ==========================================================
+   2. RESET
+   Les navigateurs ajoutent des marges et styles par défaut
+   différents. On repart donc d'une base neutre.
+   ========================================================== */
 
-
-
-/*-----------------------------------*\
-  #RESET
-\*-----------------------------------*/
-
+/* "*" = tous les éléments. box-sizing: border-box fait que width inclut
+   le padding et la bordure (beaucoup plus intuitif pour calculer les tailles). */
 *, *::before, *::after {
   margin: 0;
   padding: 0;
   box-sizing: border-box;
 }
 
-a { text-decoration: none; }
-
+a  { text-decoration: none; }
 li { list-style: none; }
 
+/* display: block fait occuper à ces éléments toute leur ligne,
+   ce qui évite des petits espaces vides inattendus sous les images. */
 img, ion-icon, a, button, time, span { display: block; }
 
+/* Les boutons héritent de la police du site et perdent leur apparence native */
 button {
   font: inherit;
   background: none;
@@ -139,32 +97,25 @@ button {
   cursor: pointer;
 }
 
-input, textarea {
-  display: block;
-  width: 100%;
-  background: none;
-  font: inherit;
-}
-
+/* Couleur du texte quand on le sélectionne à la souris */
 ::selection {
   background: var(--orange-yellow-crayola);
   color: var(--smoky-black);
 }
 
+/* Contour visible au focus clavier (touche Tab) : bon pour l'accessibilité */
 :focus { outline-color: var(--orange-yellow-crayola); }
 
 html { font-family: var(--ff-poppins); }
-
 body { background: var(--smoky-black); }
 
 
+/* ==========================================================
+   3. STYLES RÉUTILISÉS
+   Classes utilisées à plusieurs endroits de la page.
+   ========================================================== */
 
-
-
-/*-----------------------------------*\
-  #REUSED STYLE
-\*-----------------------------------*/
-
+/* Cartes principales : la barre latérale et les pages */
 .sidebar,
 article {
   background: var(--eerie-black-2);
@@ -175,6 +126,7 @@ article {
   z-index: 1;
 }
 
+/* Fine ligne de séparation */
 .separator {
   width: 100%;
   height: 1px;
@@ -182,13 +134,14 @@ article {
   margin: 16px 0;
 }
 
+/* Petit carré qui contient une icône */
 .icon-box {
-  position: relative;
+  position: relative;      /* sert de repère pour le ::before ci-dessous */
   background: var(--border-gradient-onyx);
   width: 30px;
   height: 30px;
   border-radius: 8px;
-  display: flex;
+  display: flex;           /* flex + centrage = icône au milieu du carré */
   justify-content: center;
   align-items: center;
   font-size: 16px;
@@ -197,6 +150,8 @@ article {
   z-index: 1;
 }
 
+/* Astuce de la "bordure dégradée" : un calque légèrement plus petit (inset: 1px)
+   est posé derrière le contenu, il laisse voir 1px de dégradé sur le pourtour. */
 .icon-box::before {
   content: "";
   position: absolute;
@@ -208,6 +163,8 @@ article {
 
 .icon-box ion-icon { --ionicon-stroke-width: 35px; }
 
+/* Toutes les pages sont cachées, seule celle qui a la classe "active" s'affiche
+   (le JS ajoute/retire cette classe quand on clique dans le menu) */
 article { display: none; }
 
 article.active {
@@ -216,32 +173,25 @@ article.active {
 }
 
 @keyframes fade {
-  0% { opacity: 0; }
+  0%   { opacity: 0; }
   100% { opacity: 1; }
 }
 
-.h2,
-.h3,
-.h4,
-.h5 {
+/* Titres */
+.h2, .h3, .h4, .h5 {
   color: var(--white-2);
   text-transform: capitalize;
 }
-
 .h2 { font-size: var(--fs-1); }
-
 .h3 { font-size: var(--fs-2); }
-
 .h4 { font-size: var(--fs-4); }
+.h5 { font-size: var(--fs-7); font-weight: var(--fw-500); }
 
-.h5 {
-  font-size: var(--fs-7);
-  font-weight: var(--fw-500);
-}
-
+/* Titre de page avec un petit trait jaune dessiné dessous (::after) */
 .article-title {
   position: relative;
   padding-bottom: 7px;
+  margin-bottom: 30px;
 }
 
 .article-title::after {
@@ -255,23 +205,13 @@ article.active {
   border-radius: 3px;
 }
 
-.has-scrollbar::-webkit-scrollbar {
-  width: 5px; /* for vertical scrollbar */
-  height: 5px; /* for horizontal scrollbar */
-}
-
-.has-scrollbar::-webkit-scrollbar-track {
-  background: var(--onyx);
-  border-radius: 5px;
-}
-
-.has-scrollbar::-webkit-scrollbar-thumb {
-  background: var(--orange-yellow-crayola);
-  border-radius: 5px;
-}
-
+/* Barre de défilement horizontale personnalisée (témoignages) */
+.has-scrollbar::-webkit-scrollbar { width: 5px; height: 5px; }
+.has-scrollbar::-webkit-scrollbar-track { background: var(--onyx); border-radius: 5px; }
+.has-scrollbar::-webkit-scrollbar-thumb { background: var(--orange-yellow-crayola); border-radius: 5px; }
 .has-scrollbar::-webkit-scrollbar-button { width: 20px; }
 
+/* Carte à bordure dégradée (témoignages, compétences) : même astuce que .icon-box */
 .content-card {
   position: relative;
   background: var(--border-gradient-onyx);
@@ -292,41 +232,29 @@ article.active {
   z-index: -1;
 }
 
-
-
-
-
-/*-----------------------------------*\
-  #MAIN
-\*-----------------------------------*/
-
 main {
-  margin: 15px 12px;
-  margin-bottom: 75px;
+  margin: 15px 12px 75px;   /* haut, côtés, bas (le bas laisse la place au menu fixe) */
   min-width: 259px;
 }
 
 
-
-
-
-/*-----------------------------------*\
-  #SIDEBAR
-\*-----------------------------------*/
-
+/* ==========================================================
+   4. BARRE LATÉRALE (profil)
+   Sur mobile elle est repliée (max-height) ; le bouton "Voir les contacts"
+   ajoute la classe "active" qui la déplie avec une animation.
+   ========================================================== */
 .sidebar {
   margin-bottom: 15px;
-  max-height: 112px;
-  overflow: hidden;
+  max-height: 112px;       /* hauteur repliée */
+  overflow: hidden;        /* cache ce qui dépasse */
   transition: var(--transition-2);
 }
 
-.sidebar.active { max-height: 405px; }
+.sidebar.active { max-height: 405px; }   /* hauteur dépliée */
 
 .sidebar-info {
   position: relative;
   display: flex;
-  justify-content: flex-start;
   align-items: center;
   gap: 15px;
 }
@@ -349,11 +277,12 @@ main {
   background: var(--onyx);
   font-size: var(--fs-8);
   font-weight: var(--fw-300);
-  width: max-content;
+  width: max-content;      /* le badge s'ajuste à la largeur de son texte */
   padding: 3px 12px;
   border-radius: 8px;
 }
 
+/* Bouton déplier/replier, placé dans le coin supérieur droit de la carte */
 .info_more-btn {
   position: absolute;
   top: -15px;
@@ -384,8 +313,9 @@ main {
 .info_more-btn:hover::before,
 .info_more-btn:focus::before { background: var(--bg-gradient-yellow-2); }
 
-.info_more-btn span { display: none; }
+.info_more-btn span { display: none; }   /* le texte n'apparaît que sur écran moyen+ */
 
+/* Zone des contacts : invisible tant que la barre est repliée */
 .sidebar-info_more {
   opacity: 0;
   visibility: hidden;
@@ -399,7 +329,7 @@ main {
 
 .contacts-list {
   display: grid;
-  grid-template-columns: 1fr;
+  grid-template-columns: 1fr;   /* une seule colonne sur mobile */
   gap: 16px;
 }
 
@@ -411,7 +341,7 @@ main {
 }
 
 .contact-info {
-  max-width: calc(100% - 46px);
+  max-width: calc(100% - 46px);   /* largeur totale moins la place de l'icône */
   width: calc(100% - 46px);
 }
 
@@ -422,16 +352,16 @@ main {
   margin-bottom: 2px;
 }
 
+/* :is() applique la même règle à plusieurs éléments à la fois */
 .contact-info :is(.contact-link, time, address) {
   color: var(--white-2);
   font-size: var(--fs-7);
 }
 
-.contact-info address { font-style: normal; }
+.contact-info address { font-style: normal; }   /* <address> est en italique par défaut */
 
 .social-list {
   display: flex;
-  justify-content: flex-start;
   align-items: center;
   gap: 15px;
   padding-bottom: 4px;
@@ -443,28 +373,24 @@ main {
   font-size: 18px;
 }
 
-
 .social-item .social-link:hover { color: var(--light-gray); }
 
 
-
-
-
-/*-----------------------------------*\
-  #NAVBAR
-\*-----------------------------------*/
-
+/* ==========================================================
+   5. BARRE DE NAVIGATION
+   Fixée en bas de l'écran sur mobile (déplacée en haut à droite sur PC).
+   ========================================================== */
 .navbar {
-  position: fixed;
+  position: fixed;     /* reste visible même quand on fait défiler la page */
   bottom: 0;
   left: 0;
   width: 100%;
   background: hsla(240, 1%, 17%, 0.75);
-  backdrop-filter: blur(10px);
+  backdrop-filter: blur(10px);   /* effet de verre dépoli */
   border: 1px solid var(--jet);
   border-radius: 12px 12px 0 0;
   box-shadow: var(--shadow-2);
-  z-index: 5;
+  z-index: 5;          /* passe au-dessus du reste */
 }
 
 .navbar-list {
@@ -485,16 +411,12 @@ main {
 .navbar-link:hover,
 .navbar-link:focus { color: var(--light-gray-70); }
 
-.navbar-link.active { color: var(--orange-yellow-crayola); }
+.navbar-link.active { color: var(--orange-yellow-crayola); }   /* page en cours */
 
 
-
-
-
-/*-----------------------------------*\
-  #ABOUT
-\*-----------------------------------*/
-
+/* ==========================================================
+   6. PAGE "À PROPOS"
+   ========================================================== */
 .about .article-title { margin-bottom: 15px; }
 
 .about-text {
@@ -506,14 +428,8 @@ main {
 
 .about-text p { margin-bottom: 15px; }
 
-
-
-/**
- * #service 
- */
-
+/* ----- Services ("Ce que je fais") ----- */
 .service { margin-bottom: 35px; }
-
 .service-title { margin-bottom: 20px; }
 
 .service-list {
@@ -541,37 +457,28 @@ main {
 }
 
 .service-icon-box { margin-bottom: 10px; }
-
-.service-icon-box img { margin: auto; }
-
+.service-icon-box img { margin: auto; }   /* margin auto = centre l'image */
 .service-content-box { text-align: center; }
-
 .service-item-title { margin-bottom: 7px; }
 
 .service-item-text {
   color: var(--light-gray);
   font-size: var(--fs-6);
-  font-weight: var(--fw-3);
+  font-weight: var(--fw-400);   /* corrigé : l'original utilisait var(--fw-3), une variable qui n'existe pas */
   line-height: 1.6;
 }
 
-
-/**
- * #testimonials 
- */
-
+/* ----- Témoignages ----- */
 .testimonials { margin-bottom: 30px; }
-
 .testimonials-title { margin-bottom: 20px; }
 
+/* Liste qui défile horizontalement, chaque carte "s'accroche" au centre (scroll-snap) */
 .testimonials-list {
   display: flex;
-  justify-content: flex-start;
   align-items: flex-start;
   gap: 15px;
   margin: 0 -15px;
-  padding: 25px 15px;
-  padding-bottom: 35px;
+  padding: 25px 15px 35px;
   overflow-x: auto;
   scroll-behavior: smooth;
   overscroll-behavior-inline: contain;
@@ -579,10 +486,11 @@ main {
 }
 
 .testimonials-item {
-  min-width: 100%;
+  min-width: 100%;            /* une carte = toute la largeur */
   scroll-snap-align: center;
 }
 
+/* Avatar posé à cheval sur le haut de la carte */
 .testimonials-avatar-box {
   position: absolute;
   top: 0;
@@ -595,6 +503,7 @@ main {
 
 .testimonials-item-title { margin-bottom: 7px; }
 
+/* Texte tronqué à 4 lignes (2 sur grand écran) ; le texte complet est dans la fenêtre modale */
 .testimonials-text {
   color: var(--light-gray);
   font-size: var(--fs-6);
@@ -607,11 +516,7 @@ main {
   overflow: hidden;
 }
 
-
-/**
- * #testimonials-modal
- */
-
+/* ----- Fenêtre modale (témoignage en grand) ----- */
 .modal-container {
   position: fixed;
   top: 0;
@@ -624,7 +529,7 @@ main {
   overflow-y: auto;
   overscroll-behavior: contain;
   z-index: 20;
-  pointer-events: none;
+  pointer-events: none;      /* cachée = on ne peut pas cliquer dessus */
   visibility: hidden;
 }
 
@@ -635,6 +540,7 @@ main {
   visibility: visible;
 }
 
+/* Fond sombre derrière la fenêtre */
 .overlay {
   position: fixed;
   top: 0;
@@ -655,6 +561,7 @@ main {
   pointer-events: all;
 }
 
+/* Fenêtre : arrive en grossissant légèrement (scale 1.2 → 1) */
 .testimonials-modal {
   background: var(--eerie-black-2);
   position: relative;
@@ -703,16 +610,9 @@ main {
   box-shadow: var(--shadow-2);
 }
 
-.modal-img-wrapper > img { display: none; }
+.modal-img-wrapper > img { display: none; }   /* guillemet décoratif : caché sur mobile */
 
 .modal-title { margin-bottom: 4px; }
-
-.modal-content time {
-  font-size: var(--fs-6);
-  color: var(--light-gray-70);
-  font-weight: var(--fw-300);
-  margin-bottom: 10px;
-}
 
 .modal-content p {
   color: var(--light-gray);
@@ -722,55 +622,11 @@ main {
 }
 
 
-/**
- * #clients 
- */
+/* ==========================================================
+   7. PAGE "CV"
+   ========================================================== */
 
-.clients { margin-bottom: 15px; }
-
-.clients-list {
-  display: flex;
-  justify-content: flex-start;
-  align-items: flex-start;
-  gap: 15px;
-  margin: 0 -15px;
-  padding: 25px;
-  padding-bottom: 25px;
-  overflow-x: auto;
-  scroll-behavior: smooth;
-  overscroll-behavior-inline: contain;
-  scroll-snap-type: inline mandatory;
-  scroll-padding-inline: 25px;
-}
-
-.clients-item {
-  min-width: 50%;
-  scroll-snap-align: start;
-}
-
-.clients-item img {
-  width: 100%;
-  filter: grayscale(1);
-  transition: var(--transition-1);
-}
-
-.clients-item img:hover { filter: grayscale(0); }
-
-
-
-
-
-/*-----------------------------------*\
-  #RESUME
-\*-----------------------------------*/
-
-.article-title { margin-bottom: 30px; }
-
-
-/**
- * education and experience 
- */
-
+/* ----- Chronologies (formation et expérience) ----- */
 .timeline { margin-bottom: 30px; }
 
 .timeline .title-wrapper {
@@ -782,11 +638,10 @@ main {
 
 .timeline-list {
   font-size: var(--fs-6);
-  margin-left: 45px;
+  margin-left: 45px;   /* laisse la place à la ligne verticale et aux points */
 }
 
 .timeline-item { position: relative; }
-
 .timeline-item:not(:last-child) { margin-bottom: 20px; }
 
 .timeline-item-title {
@@ -801,6 +656,7 @@ main {
   line-height: 1.6;
 }
 
+/* Ligne verticale reliant les éléments (sauf après le dernier) */
 .timeline-item:not(:last-child)::before {
   content: "";
   position: absolute;
@@ -811,6 +667,7 @@ main {
   background: var(--jet);
 }
 
+/* Petit point jaune devant chaque élément */
 .timeline-item::after {
   content: "";
   position: absolute;
@@ -820,7 +677,7 @@ main {
   width: 6px;
   background: var(--text-gradient-yellow);
   border-radius: 50%;
-  box-shadow: 0 0 0 4px var(--jet);
+  box-shadow: 0 0 0 4px var(--jet);   /* faux "halo" autour du point */
 }
 
 .timeline-text {
@@ -829,16 +686,9 @@ main {
   line-height: 1.6;
 }
 
-
-/**
- * skills 
- */
-
+/* ----- Compétences (barres de progression) ----- */
 .skills-title { margin-bottom: 20px; }
-
 .skills-list { padding: 20px; }
-
-
 .skills-item:not(:last-child) { margin-bottom: 15px; }
 
 .skill .title-wrapper {
@@ -854,6 +704,7 @@ main {
   font-weight: var(--fw-300);
 }
 
+/* Barre grise (fond) ; la barre jaune (fill) prend la largeur donnée dans le HTML */
 .skill-progress-bg {
   background: var(--jet);
   width: 100%;
@@ -868,15 +719,11 @@ main {
 }
 
 
+/* ==========================================================
+   8. PAGE "PORTFOLIO"
+   ========================================================== */
 
-
-
-/*-----------------------------------*\
-  #PORTFOLIO
-\*-----------------------------------*/
-
-.filter-list { display: none; }
-
+/* Menu déroulant de filtre (visible sur mobile uniquement) */
 .filter-select-box {
   position: relative;
   margin-bottom: 25px;
@@ -896,42 +743,9 @@ main {
   font-weight: var(--fw-300);
 }
 
-.filter-select.active .select-icon { transform: rotate(0.5turn); }
+.filter-select.active .select-icon { transform: rotate(0.5turn); }   /* retourne la flèche */
 
-.select-list {
-  background: var(--eerie-black-2);
-  position: absolute;
-  top: calc(100% + 6px);
-  width: 100%;
-  padding: 6px;
-  border: 1px solid var(--jet);
-  border-radius: 14px;
-  z-index: 2;
-  opacity: 0;
-  visibility: hidden;
-  pointer-events: none;
-  transition: 0.15s ease-in-out;
-}
-
-.filter-select.active + .select-list {
-  opacity: 1;
-  visibility: visible;
-  pointer-events: all;
-}
-
-.select-item button {
-  background: var(--eerie-black-2);
-  color: var(--light-gray);
-  font-size: var(--fs-6);
-  font-weight: var(--fw-300);
-  text-transform: capitalize;
-  width: 100%;
-  padding: 8px 10px;
-  border-radius: 8px;
-}
-
-.select-item button:hover { --eerie-black-2: hsl(240, 2%, 20%); }
-
+/* Grille de projets : 1 colonne sur mobile (2 puis 3 plus bas) */
 .project-list {
   display: grid;
   grid-template-columns: 1fr;
@@ -939,6 +753,7 @@ main {
   margin-bottom: 10px;
 }
 
+/* Un projet est caché sauf s'il a la classe "active" (utilisé par le filtre JS) */
 .project-item { display: none; }
 
 .project-item.active {
@@ -947,7 +762,7 @@ main {
 }
 
 @keyframes scaleUp {
-  0% { transform: scale(0.5); }
+  0%   { transform: scale(0.5); }
   100% { transform: scale(1); }
 }
 
@@ -958,17 +773,15 @@ main {
   width: 100%;
   height: 200px;
   border-radius: 16px;
-  overflow: hidden;
+  overflow: hidden;      /* l'image zoomée ne dépasse pas des coins arrondis */
   margin-bottom: 15px;
 }
 
+/* Voile sombre qui apparaît au survol */
 .project-img::before {
   content: "";
   position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
+  inset: 0;
   background: transparent;
   z-index: 1;
   transition: var(--transition-1);
@@ -976,9 +789,9 @@ main {
 
 .project-item > a:hover .project-img::before { background: hsla(0, 0%, 0%, 0.5); }
 
+/* Icône "œil" au centre, invisible puis révélée au survol */
 .project-item-icon-box {
-  --scale: 0.8;
-
+  --scale: 0.8;    /* variable locale, modifiée au survol pour l'effet de zoom */
   background: var(--jet);
   color: var(--orange-yellow-crayola);
   position: absolute;
@@ -1003,7 +816,7 @@ main {
 .project-img img {
   width: 100%;
   height: 100%;
-  object-fit: cover;
+  object-fit: cover;     /* l'image remplit le cadre sans être déformée */
   transition: var(--transition-1);
 }
 
@@ -1027,53 +840,22 @@ main {
 }
 
 
-/*-----------------------------------*\
-  #RESPONSIVE
-\*-----------------------------------*/
+/* ==========================================================
+   9. RESPONSIVE : adaptation aux écrans plus larges
+   @media (min-width: X) = "à partir d'un écran de X pixels de large".
+   On ne réécrit que ce qui CHANGE par rapport au mobile.
+   ========================================================== */
 
-/**
- * responsive larger than 450px screen
- */
-
+/* ----- À partir de 450px ----- */
 @media (min-width: 450px) {
-
-  /**
-   * client
-   */
-
-  .clients-item { min-width: calc(33.33% - 10px); }
-
-
-
-  /**
-   * #PORTFOLIO, BLOG 
-   */
-
-  .project-img,
-  .blog-banner-box { height: auto; }
-
+  .project-img { height: auto; }   /* la hauteur suit alors la forme de l'image */
 }
 
-
-
-
-
-/**
- * responsive larger than 580px screen
- */
-
+/* ----- À partir de 580px (grand téléphone / petite tablette) ----- */
 @media (min-width: 580px) {
 
-  /**
-   * CUSTOM PROPERTY
-   */
-
+  /* Textes plus grands */
   :root {
-
-    /**
-     * typography
-     */
-
     --fs-1: 32px;
     --fs-2: 24px;
     --fs-3: 26px;
@@ -1081,425 +863,120 @@ main {
     --fs-6: 15px;
     --fs-7: 15px;
     --fs-8: 12px;
-
   }
 
-
-
-  /**
-   * #REUSED STYLE
-   */
-
+  /* Cartes centrées avec une largeur fixe */
   .sidebar, article {
     width: 520px;
     margin-inline: auto;
     padding: 30px;
   }
 
-  .article-title {
-    font-weight: var(--fw-600);
-    padding-bottom: 15px;
-  }
+  .article-title { font-weight: var(--fw-600); padding-bottom: 15px; }
+  .article-title::after { width: 40px; height: 5px; }
 
-  .article-title::after {
-    width: 40px;
-    height: 5px;
-  }
+  .icon-box { width: 48px; height: 48px; border-radius: 12px; font-size: 18px; }
 
-  .icon-box {
-    width: 48px;
-    height: 48px;
-    border-radius: 12px;
-    font-size: 18px;
-  }
+  main { margin-top: 60px; margin-bottom: 100px; }
 
-
-
-  /**
-   * #MAIN
-   */
-
-  main {
-    margin-top: 60px;
-    margin-bottom: 100px;
-  }
-
-
-
-  /**
-   * #SIDEBAR
-   */
-
-  .sidebar {
-    max-height: 180px;
-    margin-bottom: 30px;
-  }
-
+  /* Barre latérale */
+  .sidebar { max-height: 180px; margin-bottom: 30px; }
   .sidebar.active { max-height: 584px; }
-
   .sidebar-info { gap: 25px; }
-
   .avatar-box { border-radius: 30px; }
-
   .avatar-box img { width: 120px; }
-
   .info-content .name { margin-bottom: 15px; }
-
   .info-content .title { padding: 5px 18px; }
 
-  .info_more-btn {
-    top: -30px;
-    right: -30px;
-    padding: 10px 15px;
-  }
-
-  .info_more-btn span {
-    display: block;
-    font-size: var(--fs-8);
-  }
-
-  .info_more-btn ion-icon { display: none; }
+  .info_more-btn { top: -30px; right: -30px; padding: 10px 15px; }
+  .info_more-btn span { display: block; font-size: var(--fs-8); }  /* affiche le texte du bouton... */
+  .info_more-btn ion-icon { display: none; }                       /* ...et cache la flèche */
 
   .separator { margin: 32px 0; }
-
   .contacts-list { gap: 20px; }
-
-  .contact-info {
-    max-width: calc(100% - 64px);
-    width: calc(100% - 64px);
-  }
-
-
-
-  /**
-   * #NAVBAR
-   */
+  .contact-info { max-width: calc(100% - 64px); width: calc(100% - 64px); }
 
   .navbar { border-radius: 20px 20px 0 0; }
-
   .navbar-list { gap: 20px; }
-
   .navbar-link { --fs-8: 14px; }
 
-
-
-  /**
-   * #ABOUT
-   */
-
+  /* À propos */
   .about .article-title { margin-bottom: 20px; }
-
   .about-text { margin-bottom: 40px; }
 
-  /* service */
-
+  /* Services : icône à gauche, texte à droite */
   .service-item {
     display: flex;
-    justify-content: flex-start;
     align-items: flex-start;
     gap: 18px;
     padding: 30px;
   }
-
-  .service-icon-box {
-    margin-bottom: 0;
-    margin-top: 5px;
-  }
-
+  .service-icon-box { margin-bottom: 0; margin-top: 5px; }
   .service-content-box { text-align: left; }
 
-  /* testimonials */
-
+  /* Témoignages */
   .testimonials-title { margin-bottom: 25px; }
-
-  .testimonials-list {
-    gap: 30px;
-    margin: 0 -30px;
-    padding: 30px;
-    padding-bottom: 35px;
-  }
-
-  .content-card {
-    padding: 30px;
-    padding-top: 25px;
-  }
-
-  .testimonials-avatar-box {
-    transform: translate(30px, -30px);
-    border-radius: 20px;
-  }
-
+  .testimonials-list { gap: 30px; margin: 0 -30px; padding: 30px 30px 35px; }
+  .content-card { padding: 30px; padding-top: 25px; }
+  .testimonials-avatar-box { transform: translate(30px, -30px); border-radius: 20px; }
   .testimonials-avatar-box img { width: 80px; }
+  .testimonials-item-title { margin-bottom: 10px; margin-left: 95px; }
+  .testimonials-text { line-clamp: 2; -webkit-line-clamp: 2; }
 
-  .testimonials-item-title {
-    margin-bottom: 10px;
-    margin-left: 95px;
-  }
-
-  .testimonials-text {
-    line-clamp: 2;
-    -webkit-line-clamp: 2;
-  }
-
-  /* testimonials modal */
-
+  /* Fenêtre modale : avatar à gauche, texte à droite */
   .modal-container { padding: 20px; }
-
   .testimonials-modal {
     display: flex;
-    justify-content: flex-start;
     align-items: stretch;
     gap: 25px;
     padding: 30px;
     border-radius: 20px;
   }
-
-  .modal-img-wrapper {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-  }
-
-  .modal-avatar-box {
-    border-radius: 18px;
-    margin-bottom: 0;
-  }
-
+  .modal-img-wrapper { display: flex; flex-direction: column; align-items: center; }
+  .modal-avatar-box { border-radius: 18px; margin-bottom: 0; }
   .modal-avatar-box img { width: 65px; }
+  .modal-img-wrapper > img { display: block; flex-grow: 1; width: 35px; }  /* le guillemet apparaît */
 
-  .modal-img-wrapper > img {
-    display: block;
-    flex-grow: 1;
-    width: 35px;
-  }
-
-  /* clients */
-
-  .clients-list {
-    gap: 50px;
-    margin: 0 -30px;
-    padding: 45px;
-    scroll-padding-inline: 45px;
-  }
-
-  .clients-item { min-width: calc(33.33% - 35px); }
-
-
-
-  /**
-   * #RESUME
-   */
-
+  /* CV */
   .timeline-list { margin-left: 65px; }
-
   .timeline-item:not(:last-child)::before { left: -40px; }
-
-  .timeline-item::after {
-    height: 8px;
-    width: 8px;
-    left: -43px;
-  }
-
+  .timeline-item::after { height: 8px; width: 8px; left: -43px; }
   .skills-item:not(:last-child) { margin-bottom: 25px; }
 
-
-
-  /**
-   * #PORTFOLIO, BLOG
-   */
-
-  .project-img, .blog-banner-box { border-radius: 16px; }
-
-  .blog-posts-list { gap: 30px; }
-
-  .blog-content { padding: 25px; }
-
-
-
-  /**
-   * #CONTACT
-   */
-
-  .mapbox {
-    height: 380px;
-    border-radius: 18px;
-  }
-
-  .input-wrapper {
-    gap: 30px;
-    margin-bottom: 30px;
-  }
-
-  .form-input { padding: 15px 20px; }
-
-  textarea.form-input { margin-bottom: 30px; }
-
-  .form-btn {
-    --fs-6: 16px;
-    padding: 16px 20px;
-  }
-
-  .form-btn ion-icon { font-size: 18px; }
-
+  .project-img { border-radius: 16px; }
 }
 
-
-
-
-
-/**
- * responsive larger than 768px screen
- */
-
+/* ----- À partir de 768px (tablette) ----- */
 @media (min-width: 768px) {
-
-  /**
-   * REUSED STYLE
-   */
-
   .sidebar, article { width: 700px; }
-
   .has-scrollbar::-webkit-scrollbar-button { width: 100px; }
 
-
-
-  /**
-   * SIDEBAR
-   */
-
-  .contacts-list {
-    grid-template-columns: 1fr 1fr;
-    gap: 30px 15px;
-  }
-
-
-
-  /**
-   * NAVBAR
-   */
-
+  .contacts-list { grid-template-columns: 1fr 1fr; gap: 30px 15px; }   /* 2 colonnes */
   .navbar-link { --fs-8: 15px; }
 
-
-
-  /**
-   * ABOUT
-   */
-
-  /* testimonials modal */
-
-  .testimonials-modal {
-    gap: 35px;
-    max-width: 680px;
-  }
-
+  .testimonials-modal { gap: 35px; max-width: 680px; }
   .modal-avatar-box img { width: 80px; }
 
-
-
-  /**
-   * PORTFOLIO
-   */
-
   .article-title { padding-bottom: 20px; }
-
-  .filter-select-box { display: none; }
-
-  .filter-list {
-    display: flex;
-    justify-content: flex-start;
-    align-items: center;
-    gap: 25px;
-    padding-left: 5px;
-    margin-bottom: 30px;
-  }
-
-  .filter-item button {
-    color: var(--light-gray);
-    font-size: var(--fs-5);
-    transition: var(--transition-1);
-  }
-
-  .filter-item button:hover { color: var(--light-gray-70); }
-
-  .filter-item button.active { color: var(--orange-yellow-crayola); }
-
-  /* portfolio and blog grid */
-
-  .project-list, .blog-posts-list { grid-template-columns: 1fr 1fr; }
-
-
-
-  /**
-   * CONTACT
-   */
-
-  .input-wrapper { grid-template-columns: 1fr 1fr; }
-
-  .form-btn {
-    width: max-content;
-    margin-left: auto;
-  }
-  
+  .filter-select-box { display: none; }   /* le menu déroulant mobile disparaît */
+  .project-list { grid-template-columns: 1fr 1fr; }                    /* 2 colonnes */
 }
 
-
-
-
-
-/**
- * responsive larger than 1024px screen
- */
-
+/* ----- À partir de 1024px (petit ordinateur) ----- */
 @media (min-width: 1024px) {
 
-  /**
-   * CUSTOM PROPERTY
-   */
-
+  /* Ombres plus discrètes */
   :root {
-
-    /**
-    * shadow
-    */
-
     --shadow-1: -4px 8px 24px hsla(0, 0%, 0%, 0.125);
     --shadow-2: 0 16px 30px hsla(0, 0%, 0%, 0.125);
-    --shadow-3: 0 16px 40px hsla(0, 0%, 0%, 0.125);
-
   }
 
-
-
-  /**
-   * REUSED STYLE
-   */
-
-  .sidebar, article {
-    width: 950px;
-    box-shadow: var(--shadow-5);
-  }
-
-
-
-  /**
-   * MAIN 
-   */
+  .sidebar, article { width: 950px; box-shadow: var(--shadow-5); }
 
   main { margin-bottom: 60px; }
+  .main-content { position: relative; width: max-content; margin: auto; }
 
-  .main-content {
-    position: relative;
-    width: max-content;
-    margin: auto;
-  }
-
-
-
-  /**
-   * NAVBAR
-   */
-
+  /* Le menu quitte le bas de l'écran pour le coin supérieur droit de la page */
   .navbar {
     position: absolute;
     bottom: auto;
@@ -1511,65 +988,20 @@ main {
     padding: 0 20px;
     box-shadow: none;
   }
-
-  .navbar-list {
-    gap: 30px;
-    padding: 0 20px;
-  }
-
+  .navbar-list { gap: 30px; padding: 0 20px; }
   .navbar-link { font-weight: var(--fw-500); }
 
-
-
-  /**
-   * ABOUT
-   */
-
-  /* service */
-
-  .service-list {
-    grid-template-columns: 1fr 1fr;
-    gap: 20px 25px;
-  }
-
-  /* testimonials */
-
-  .testimonials-item { min-width: calc(50% - 15px); }
-
-  /* clients */
-
-  .clients-item { min-width: calc(25% - 38px); }
-
-  /**
-   * PORTFOLIO
-   */
-
-  .project-list { grid-template-columns: repeat(3, 1fr); }
-
-
-
-  /**
-   * BLOG
-   */
-
-  .blog-banner-box { height: 230px; }
-
+  .service-list { grid-template-columns: 1fr 1fr; gap: 20px 25px; }
+  .testimonials-item { min-width: calc(50% - 15px); }   /* 2 témoignages visibles */
+  .project-list { grid-template-columns: repeat(3, 1fr); } /* 3 colonnes */
 }
 
-/**
- * responsive larger than 1250px screen
- */
-
+/* ----- À partir de 1250px (grand écran) : barre latérale à gauche, pages à droite ----- */
 @media (min-width: 1250px) {
 
-  /**
-   * RESET
-   */
-
+  /* Barre de défilement de la page, stylée */
   body::-webkit-scrollbar { width: 20px; }
-
   body::-webkit-scrollbar-track { background: var(--smoky-black); }
-
   body::-webkit-scrollbar-thumb {
     border: 5px solid var(--smoky-black);
     background: hsla(0, 0%, 100%, 0.1);
@@ -1577,27 +1009,13 @@ main {
     box-shadow: inset 1px 1px 0 hsla(0, 0%, 100%, 0.11),
                 inset -1px -1px 0 hsla(0, 0%, 100%, 0.11);
   }
-
   body::-webkit-scrollbar-thumb:hover { background: hsla(0, 0%, 100%, 0.15); }
-
   body::-webkit-scrollbar-button { height: 60px; }
 
-
-
-  /**
-   * REUSED STYLE
-   */
-
   .sidebar, article { width: auto; }
-
   article { min-height: 100%; }
 
-
-
-  /**
-   * MAIN
-   */
-
+  /* main devient une rangée : sidebar | contenu */
   main {
     max-width: 1200px;
     margin-inline: auto;
@@ -1607,18 +1025,9 @@ main {
     gap: 25px;
   }
 
-  .main-content {
-    min-width: 75%;
-    width: 75%;
-    margin: 0;
-  }
+  .main-content { min-width: 75%; width: 75%; margin: 0; }
 
-
-
-  /**
-   * SIDEBAR
-   */
-
+  /* La barre latérale reste collée en haut quand on défile (sticky), toujours dépliée */
   .sidebar {
     position: sticky;
     top: 60px;
@@ -1630,26 +1039,15 @@ main {
   }
 
   .sidebar-info { flex-direction: column; }
-
   .avatar-box img { width: 150px; }
-
-  .info-content .name {
-    white-space: nowrap;
-    text-align: center;
-  }
-
+  .info-content .name { white-space: nowrap; text-align: center; }
   .info-content .title { margin: auto; }
-
-  .info_more-btn { display: none; }
-
-  .sidebar-info_more {
-    opacity: 1;
-    visibility: visible;
-  }
-
+  .info_more-btn { display: none; }                 /* plus besoin du bouton */
+  .sidebar-info_more { opacity: 1; visibility: visible; }
   .contacts-list { grid-template-columns: 1fr; }
 
-  .contact-info :is(.contact-link) {
+  /* L'email trop long se termine par "…" au lieu de déborder */
+  .contact-info .contact-link {
     white-space: nowrap;
     overflow: hidden;
     text-overflow: ellipsis;
@@ -1660,19 +1058,8 @@ main {
     font-weight: var(--fw-300);
   }
 
-  .separator:last-of-type {
-    margin: 15px 0;
-    opacity: 0;
-  }
-
+  .separator:last-of-type { margin: 15px 0; opacity: 0; }
   .social-list { justify-content: center; }
 
-
-
-  /**
-	 * RESUME
-	 */
-
-  .timeline-text { max-width: 700px; }
-
+  .timeline-text { max-width: 700px; }   /* lignes de texte plus confortables à lire */
 }

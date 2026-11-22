@@ -1,25 +1,21 @@
 <!DOCTYPE html>
-<html lang="en">
+<!-- lang="fr" : indique aux navigateurs et lecteurs d'écran que la page est en français -->
+<html lang="fr">
 
 <head>
+  <!-- Encodage UTF-8 : affiche correctement les accents (é, à, ç…) -->
   <meta charset="UTF-8">
-  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <!-- Adapte la page aux écrans de téléphone (sans cette ligne, le mobile affiche une version "dézoomée") -->
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Tom - Portfolio Personnel</title>
 
-  <!--
-    - favicon
-  -->
+  <!-- Petite icône affichée dans l'onglet du navigateur -->
   <link rel="shortcut icon" href="./assets/images/logo.ico" type="image/x-icon">
 
-  <!--
-    - custom css link
-  -->
+  <!-- Notre feuille de style (le design de la page) -->
   <link rel="stylesheet" href="./assets/css/style.css">
 
-  <!--
-    - google font link
-  -->
+  <!-- Police "Poppins" de Google Fonts (preconnect = connexion anticipée pour charger plus vite) -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600&display=swap" rel="stylesheet">
@@ -28,108 +24,107 @@
 <body>
 
   <!--
-    - #MAIN
+    Convention de ce fichier : les attributs "data-xxx" ne servent PAS au style.
+    Ce sont des "poignées" que le JavaScript utilise pour retrouver un élément.
+    Les classes (class="...") servent, elles, au CSS.
   -->
 
   <main>
 
-    <!-- - #SIDEBAR -->
+    <!-- ============ BARRE LATÉRALE : profil + contacts ============ -->
+    <!-- <aside> = contenu annexe à la page principale (ici, la carte de profil) -->
     <aside class="sidebar" data-sidebar>
+
       <div class="sidebar-info">
         <figure class="avatar-box">
           <img src="./assets/images/my-avatar.png" alt="Tom Gral" width="80">
         </figure>
-  
+
         <div class="info-content">
           <h1 class="name" title="Tom Gral">Tom Gral</h1>
           <p class="title">Data Analyst | Chef de Projet</p>
         </div>
-  
+
+        <!-- Bouton visible seulement sur mobile : le JS ouvre/ferme la zone des contacts -->
         <button class="info_more-btn" data-sidebar-btn>
           <span>Voir les contacts</span>
-          <ion-icon name="chevron-down"></ion-icon>
+          <ion-icon name="chevron-down" aria-hidden="true"></ion-icon>
         </button>
-  
       </div>
-  
+
+      <!-- Zone dépliable : contacts et réseaux -->
       <div class="sidebar-info_more">
-  
+
         <div class="separator"></div>
-  
+
         <ul class="contacts-list">
-  
+
           <li class="contact-item">
-            <div class="icon-box">
-              <ion-icon name="mail-outline"></ion-icon>
-            </div>
+            <div class="icon-box"><ion-icon name="mail-outline" aria-hidden="true"></ion-icon></div>
             <div class="contact-info">
               <p class="contact-title">Email</p>
+              <!-- mailto: ouvre le logiciel de messagerie au clic -->
               <a href="mailto:tom.gral.gt@mail.com" class="contact-link">tom.gral.gt@mail.com</a>
             </div>
           </li>
-  
+
           <li class="contact-item">
-            <div class="icon-box">
-              <ion-icon name="calendar-outline"></ion-icon>
-            </div>
+            <div class="icon-box"><ion-icon name="calendar-outline" aria-hidden="true"></ion-icon></div>
             <div class="contact-info">
               <p class="contact-title">Date de naissance</p>
+              <!-- <time datetime="..."> : date lisible par les machines (format AAAA-MM-JJ) -->
               <time datetime="2002-06-13">13 juin 2002</time>
             </div>
           </li>
-  
+
           <li class="contact-item">
-            <div class="icon-box">
-              <ion-icon name="location-outline"></ion-icon>
-            </div>
+            <div class="icon-box"><ion-icon name="location-outline" aria-hidden="true"></ion-icon></div>
             <div class="contact-info">
               <p class="contact-title">Localisation</p>
               <address>Bordeaux, France</address>
             </div>
           </li>
-  
-        </ul>
-  
-        <div class="separator"></div>
-  
-        <ul class="social-list">
-  
-          <li class="social-item">
-            <a href="https://www.linkedin.com/in/tom-gral-715733233/" class="social-link" target="_blank">
-              <ion-icon name="logo-linkedin"></ion-icon>
-            </a>
-          </li>
-  
-          <li class="social-item">
-            <a href="https://github.com/Tom33-G" class="social-link" target="_blank">
-              <ion-icon name="logo-github"></ion-icon>
-            </a>
-          </li>
 
         </ul>
+
+        <div class="separator"></div>
+
+        <ul class="social-list">
+          <!--
+            target="_blank" ouvre un nouvel onglet ; rel="noopener noreferrer" sécurise ce nouvel onglet.
+            aria-label : nom du lien pour les lecteurs d'écran (une icône seule n'a pas de texte).
+          -->
+          <li class="social-item">
+            <a href="https://www.linkedin.com/in/tom-gral-715733233/" class="social-link"
+               target="_blank" rel="noopener noreferrer" aria-label="LinkedIn">
+              <ion-icon name="logo-linkedin" aria-hidden="true"></ion-icon>
+            </a>
+          </li>
+          <li class="social-item">
+            <a href="https://github.com/Tom33-G" class="social-link"
+               target="_blank" rel="noopener noreferrer" aria-label="GitHub">
+              <ion-icon name="logo-github" aria-hidden="true"></ion-icon>
+            </a>
+          </li>
+        </ul>
+
       </div>
     </aside>
-  
-   <!-- - #main-content -->
 
+    <!-- ============ CONTENU PRINCIPAL : navigation + 3 pages ============ -->
     <div class="main-content">
 
-      <!-- - #NAVBAR -->
+      <!-- Menu de navigation. Le JS affiche la page dont le nom correspond au texte du bouton -->
       <nav class="navbar">
         <ul class="navbar-list">
-          <li class="navbar-item">
-            <button class="navbar-link active" data-nav-link>À propos</button>
-          </li>
-          <li class="navbar-item">
-            <button class="navbar-link" data-nav-link>CV</button>
-          </li>
-          <li class="navbar-item">
-            <button class="navbar-link" data-nav-link>Portfolio</button>
-          </li>
+          <li class="navbar-item"><button class="navbar-link active" data-nav-link>À propos</button></li>
+          <li class="navbar-item"><button class="navbar-link" data-nav-link>CV</button></li>
+          <li class="navbar-item"><button class="navbar-link" data-nav-link>Portfolio</button></li>
         </ul>
       </nav>
 
-      <!-- - #ABOUT -->
+      <!-- ---------- PAGE 1 : À PROPOS ---------- -->
+      <!-- data-page="à propos" doit correspondre au texte du bouton (en minuscules) -->
       <article class="about active" data-page="à propos">
 
         <header>
@@ -141,298 +136,221 @@
           <p>Fort de deux ans d'alternance et d'un stage, j'ai dirigé plusieurs projets de visualisation de données, d'automatisation de reporting et d'implémentation de solutions IA. Je suis aujourd'hui motivé pour contribuer à des projets innovants en France ou à l'international.</p>
         </section>
 
-        <!-- - services -->
+        <!-- Services : chaque <li> suit le même modèle (icône + titre + texte) -->
         <section class="service">
-
           <h3 class="h3 service-title">Ce que je fais</h3>
 
           <ul class="service-list">
 
             <li class="service-item">
               <div class="service-icon-box">
-                <img src="./assets/images/icon-analyses.svg" alt="Icône data" width="40">
+                <img src="./assets/images/icon-analyses.svg" alt="" width="40">
               </div>
               <div class="service-content-box">
                 <h4 class="h4 service-item-title">Analyse de données</h4>
-                <p class="service-item-text">
-                  Création de dashboards interactifs, visualisation de données avec Power BI et automatisation de reporting pour améliorer la prise de décision.
-                </p>
+                <p class="service-item-text">Création de dashboards interactifs, visualisation de données avec Power BI et automatisation de reporting pour améliorer la prise de décision.</p>
               </div>
             </li>
 
             <li class="service-item">
               <div class="service-icon-box">
-                <img src="./assets/images/icon-automation.svg" alt="Icône automatisation" width="40">
+                <img src="./assets/images/icon-automation.svg" alt="" width="40">
               </div>
               <div class="service-content-box">
                 <h4 class="h4 service-item-title">Automatisation de processus</h4>
-                <p class="service-item-text">
-                  Développement de scripts Python/VBA pour réduire le temps de traitement manuel et améliorer l'efficacité opérationnelle.
-                </p>
+                <p class="service-item-text">Développement de scripts Python/VBA pour réduire le temps de traitement manuel et améliorer l'efficacité opérationnelle.</p>
               </div>
             </li>
 
             <li class="service-item">
               <div class="service-icon-box">
-                <img src="./assets/images/icon-project.svg" alt="Icône gestion de projet" width="40">
+                <img src="./assets/images/icon-project.svg" alt="" width="40">
               </div>
               <div class="service-content-box">
                 <h4 class="h4 service-item-title">Gestion de projet</h4>
-                <p class="service-item-text">
-                  Encadrement de projets web et data, rédaction de documentation, pilotage agile, communication client et coordination d'équipe.
-                </p>
+                <p class="service-item-text">Encadrement de projets web et data, rédaction de documentation, pilotage agile, communication client et coordination d'équipe.</p>
               </div>
             </li>
 
             <li class="service-item">
               <div class="service-icon-box">
-                <img src="./assets/images/icon-ml.svg" alt="Icône IA" width="40">
+                <img src="./assets/images/icon-ml.svg" alt="" width="40">
               </div>
               <div class="service-content-box">
                 <h4 class="h4 service-item-title">Machine Learning</h4>
-                <p class="service-item-text">
-                  Réalisation de prototypes de modèles machine learning (vision par ordinateur, classification) pour des cas métiers ciblés.
-                </p>
+                <p class="service-item-text">Réalisation de prototypes de modèles machine learning (vision par ordinateur, classification) pour des cas métiers ciblés.</p>
               </div>
             </li>
 
           </ul>
-
         </section>
 
-
-
-        <!--
-          - testimonials
-        -->
-
+        <!-- Témoignages : un clic sur une carte ouvre la fenêtre modale plus bas -->
         <section class="testimonials">
-
           <h3 class="h3 testimonials-title">Témoignages</h3>
-        
+
           <ul class="testimonials-list has-scrollbar">
-        
+
             <li class="testimonials-item">
               <div class="content-card" data-testimonials-item>
-        
                 <figure class="testimonials-avatar-box">
                   <img src="./assets/images/avatar-1.png" alt="Tom Gral" width="60" data-testimonials-avatar>
                 </figure>
-        
                 <h4 class="h4 testimonials-item-title" data-testimonials-title>Tom Gral</h4>
-        
                 <div class="testimonials-text" data-testimonials-text>
-                  <p>
-                    Grâce à mes expériences en alternance, j’ai appris à concevoir des outils d’analyse performants et à coordonner des projets techniques tout en garantissant la fiabilité des données. J’aime créer des solutions simples à des problèmes complexes.
-                  </p>
+                  <p>Grâce à mes expériences en alternance, j’ai appris à concevoir des outils d’analyse performants et à coordonner des projets techniques tout en garantissant la fiabilité des données. J’aime créer des solutions simples à des problèmes complexes.</p>
                 </div>
-        
               </div>
             </li>
-        
+
             <li class="testimonials-item">
               <div class="content-card" data-testimonials-item>
-        
                 <figure class="testimonials-avatar-box">
                   <img src="./assets/images/avatar-2.png" alt="Lisa Gral" width="60" data-testimonials-avatar>
                 </figure>
-        
                 <h4 class="h4 testimonials-item-title" data-testimonials-title>Lisa Gral</h4>
-
                 <div class="testimonials-text" data-testimonials-text>
-                  <p>
-                    Travailler avec Tom a été une vraie plus-value pour notre équipe. Il comprend rapidement les besoins métiers et sait proposer des solutions automatisées efficaces, tout en assurant une communication claire et professionnelle.
-                  </p>
+                  <p>Travailler avec Tom a été une vraie plus-value pour notre équipe. Il comprend rapidement les besoins métiers et sait proposer des solutions automatisées efficaces, tout en assurant une communication claire et professionnelle.</p>
                 </div>
-        
               </div>
-            </li>     
+            </li>
+
           </ul>
         </section>
 
-        <!--testimonials modal-->
+        <!-- Fenêtre modale (cachée par défaut) : le JS la remplit avec le témoignage cliqué -->
         <div class="modal-container" data-modal-container>
-          <div class="overlay" data-overlay></div>
+          <div class="overlay" data-overlay></div> <!-- fond sombre derrière la fenêtre -->
           <section class="testimonials-modal">
-            <button class="modal-close-btn" data-modal-close-btn><ion-icon name="close-outline"></ion-icon></button>
+            <button class="modal-close-btn" data-modal-close-btn aria-label="Fermer">
+              <ion-icon name="close-outline" aria-hidden="true"></ion-icon>
+            </button>
             <div class="modal-img-wrapper">
-              <figure class="modal-avatar-box"><img src="./assets/images/avatar-1.png" alt="Nom client" width="80" data-modal-img></figure>
-              <img src="./assets/images/icon-quote.svg" alt="Citation">
+              <figure class="modal-avatar-box">
+                <img src="./assets/images/avatar-1.png" alt="" width="80" data-modal-img>
+              </figure>
+              <img src="./assets/images/icon-quote.svg" alt="">
             </div>
             <div class="modal-content">
-              <h4 class="h3 modal-title" data-modal-title>Nom</h4>
-              <div data-modal-text><p>Témoignage...</p></div>
+              <h4 class="h3 modal-title" data-modal-title></h4>
+              <div data-modal-text></div>
             </div>
           </section>
         </div>
 
       </article>
 
-      <!--
-        - #RESUME
-      -->
-
+      <!-- ---------- PAGE 2 : CV ---------- -->
       <article class="cv" data-page="cv">
 
         <header>
           <h2 class="h2 article-title">Parcours</h2>
         </header>
-      
+
+        <!-- Formation -->
         <section class="timeline">
-      
           <div class="title-wrapper">
-            <div class="icon-box">
-              <ion-icon name="book-outline"></ion-icon>
-            </div>
-      
+            <div class="icon-box"><ion-icon name="book-outline" aria-hidden="true"></ion-icon></div>
             <h3 class="h3">Formation</h3>
           </div>
-      
-          <ol class="timeline-list">
-      
-            <li class="timeline-item">
-              <h4 class="h4 timeline-item-title">
-                Master MIAGE – Méthodes Informatiques Appliquées à la Gestion des Entreprises, CY Tech
-              </h4>
-              <span>Sep 2023 — Oct 2025</span>
-              <p class="timeline-text">
-                Spécialisation en Data/IA. Études centrées sur les systèmes d'information, l'analyse de données, la BI,
-                la gestion de projet informatique, la finance d'entreprise et le marketing.
-              </p>
-            </li>
-      
-            <li class="timeline-item">
-              <h4 class="h4 timeline-item-title">
-                Licence MIAGE – Méthodes Informatiques Appliquées à la Gestion des Entreprises, Université de Bordeaux
-              </h4>
-              <span>Sep 2020 — Août 2023</span>
-              <p class="timeline-text">
-                Formation en modélisation statistique, programmation avancée, systèmes de bases de données, comptabilité
-                financière et structures de données.
-              </p>
-            </li>
-      
-          </ol>
-      
-        </section>
-      
-        <section class="timeline">
 
+          <!-- <ol> = liste ordonnée : adaptée à une chronologie -->
+          <ol class="timeline-list">
+            <li class="timeline-item">
+              <h4 class="h4 timeline-item-title">Master MIAGE – Méthodes Informatiques Appliquées à la Gestion des Entreprises, CY Tech</h4>
+              <span>Sep 2023 — Oct 2025</span>
+              <p class="timeline-text">Spécialisation en Data/IA. Études centrées sur les systèmes d'information, l'analyse de données, la BI, la gestion de projet informatique, la finance d'entreprise et le marketing.</p>
+            </li>
+            <li class="timeline-item">
+              <h4 class="h4 timeline-item-title">Licence MIAGE – Méthodes Informatiques Appliquées à la Gestion des Entreprises, Université de Bordeaux</h4>
+              <span>Sep 2020 — Août 2023</span>
+              <p class="timeline-text">Formation en modélisation statistique, programmation avancée, systèmes de bases de données, comptabilité financière et structures de données.</p>
+            </li>
+          </ol>
+        </section>
+
+        <!-- Expérience : même structure que la formation -->
+        <section class="timeline">
           <div class="title-wrapper">
-            <div class="icon-box">
-              <ion-icon name="briefcase-outline"></ion-icon>
-            </div>
-        
+            <div class="icon-box"><ion-icon name="briefcase-outline" aria-hidden="true"></ion-icon></div>
             <h3 class="h3">Expérience professionnelle</h3>
           </div>
-        
+
           <ol class="timeline-list">
-        
             <li class="timeline-item">
               <h4 class="h4 timeline-item-title">Chargé d'automatisation et d'analyse de données (alternance) – Sabena Technics</h4>
               <span>Sep 2023 — Oct 2025</span>
-              <p class="timeline-text">
-                Pilotage d’un projet d’automatisation ayant permis d’augmenter le nombre de chantiers suivis de 10 à 30. Développement d’un tableau de bord pour le suivi en temps réel de la charge de travail et création d’indicateurs diffusés à plus de 50 collaborateurs.
-              </p>
+              <p class="timeline-text">Pilotage d’un projet d’automatisation ayant permis d’augmenter le nombre de chantiers suivis de 10 à 30. Développement d’un tableau de bord pour le suivi en temps réel de la charge de travail et création d’indicateurs diffusés à plus de 50 collaborateurs.</p>
             </li>
-        
             <li class="timeline-item">
               <h4 class="h4 timeline-item-title">Développeur de solutions d’automatisation (stage) – Sabena Technics</h4>
               <span>Avr 2023 — Juin 2023</span>
-              <p class="timeline-text">
-                Automatisation de l’affectation des charges de travail via VBA, réduisant le temps de traitement de 4 heures à 10 secondes. Création d’un système capable de gérer plusieurs scénarios par jour avec mises à jour en temps réel.
-              </p>
+              <p class="timeline-text">Automatisation de l’affectation des charges de travail via VBA, réduisant le temps de traitement de 4 heures à 10 secondes. Création d’un système capable de gérer plusieurs scénarios par jour avec mises à jour en temps réel.</p>
             </li>
-        
             <li class="timeline-item">
               <h4 class="h4 timeline-item-title">Preuve de concept – Machine Learning et Vision par Ordinateur</h4>
               <span>Nov 2023 — Avr 2024</span>
-              <p class="timeline-text">
-                Développement d’un prototype de vision par ordinateur pour la classification d’images, atteignant un taux de précision de 95 % sur les données de test.
-              </p>
-              
+              <p class="timeline-text">Développement d’un prototype de vision par ordinateur pour la classification d’images, atteignant un taux de précision de 95 % sur les données de test.</p>
             </li>
-        
             <li class="timeline-item">
               <h4 class="h4 timeline-item-title">Trésorier – Junior MIAGE Concept</h4>
               <span>Fév 2023 — Mar 2024</span>
-              <p class="timeline-text">
-                Gestion d’un budget de 20 000 €, garantissant une allocation optimale et une responsabilité financière rigoureuse pour l’organisation étudiante.
-              </p>
+              <p class="timeline-text">Gestion d’un budget de 20 000 €, garantissant une allocation optimale et une responsabilité financière rigoureuse pour l’organisation étudiante.</p>
             </li>
-        
           </ol>
-        
-        </section>        
+        </section>
 
+        <!--
+          Compétences. À FAIRE : ces 4 compétences viennent du modèle d'origine
+          (web design, branding…) et ne reflètent pas ton profil data.
+          La largeur de la barre (style="width: X%") doit rester identique au pourcentage affiché.
+        -->
         <section class="skill">
-
           <h3 class="h3 skills-title">My skills</h3>
 
           <ul class="skills-list content-card">
-
             <li class="skills-item">
-
               <div class="title-wrapper">
                 <h5 class="h5">Web design</h5>
                 <data value="80">80%</data>
               </div>
-
               <div class="skill-progress-bg">
                 <div class="skill-progress-fill" style="width: 80%;"></div>
               </div>
-
             </li>
-
             <li class="skills-item">
-
               <div class="title-wrapper">
                 <h5 class="h5">Graphic design</h5>
                 <data value="70">70%</data>
               </div>
-
               <div class="skill-progress-bg">
                 <div class="skill-progress-fill" style="width: 70%;"></div>
               </div>
-
             </li>
-
             <li class="skills-item">
-
               <div class="title-wrapper">
                 <h5 class="h5">Branding</h5>
                 <data value="90">90%</data>
               </div>
-
               <div class="skill-progress-bg">
                 <div class="skill-progress-fill" style="width: 90%;"></div>
               </div>
-
             </li>
-
             <li class="skills-item">
-
               <div class="title-wrapper">
                 <h5 class="h5">WordPress</h5>
                 <data value="50">50%</data>
               </div>
-
               <div class="skill-progress-bg">
                 <div class="skill-progress-fill" style="width: 50%;"></div>
               </div>
-
             </li>
-
           </ul>
-
         </section>
 
       </article>
 
-      <!--
-        - #PORTFOLIO
-      -->
-
+      <!-- ---------- PAGE 3 : PORTFOLIO ---------- -->
       <article class="portfolio" data-page="portfolio">
 
         <header>
@@ -441,40 +359,29 @@
 
         <section class="projects">
 
+          <!-- Menu de filtre par catégorie (prévu pour quand tu auras plusieurs projets) -->
           <div class="filter-select-box">
-
             <button class="filter-select" data-select>
-
-              <div class="select-value" data-selecct-value>Select category</div>
-
-              <div class="select-icon">
-                <ion-icon name="chevron-down"></ion-icon>
-              </div>
-
+              <div class="select-value" data-select-value>Select category</div>
+              <div class="select-icon"><ion-icon name="chevron-down" aria-hidden="true"></ion-icon></div>
             </button>
-
           </div>
 
+          <!-- Un projet = un <li>. data-category sert au filtre. Pour en ajouter : copie ce bloc. -->
           <ul class="project-list">
-
-            <li class="project-item  active" data-filter-item data-category="web development">
+            <li class="project-item active" data-filter-item data-category="web development">
               <a href="#">
-
                 <figure class="project-img">
                   <div class="project-item-icon-box">
-                    <ion-icon name="eye-outline"></ion-icon>
+                    <ion-icon name="eye-outline" aria-hidden="true"></ion-icon>
                   </div>
-
-                  <img src="./assets/images/project-1.jpg" alt="finance" loading="lazy">
+                  <!-- loading="lazy" : l'image ne se charge que lorsqu'elle approche de l'écran -->
+                  <img src="./assets/images/project-1.jpg" alt="Aperçu du projet Finance" loading="lazy">
                 </figure>
-
                 <h3 class="project-title">Finance</h3>
-
                 <p class="project-category">Web development</p>
-
               </a>
             </li>
-
           </ul>
 
         </section>
@@ -482,18 +389,12 @@
       </article>
 
     </div>
-
   </main>
 
-
-  <!--
-    - custom js link
-  -->
+  <!-- Notre JavaScript, chargé en dernier pour que la page soit déjà affichée -->
   <script src="./assets/js/script.js"></script>
 
-  <!--
-    - ionicon link
-  -->
+  <!-- Bibliothèque d'icônes Ionicons (module pour navigateurs récents, nomodule pour les anciens) -->
   <script type="module" src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.esm.js"></script>
   <script nomodule src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.js"></script>
 

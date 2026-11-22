@@ -1,0 +1,126 @@
+/* ==========================================================
+   STYLE.CSS : ce que Tailwind ne fait pas simplement
+   Tailwind (dans index.html) gère la mise en page et les textes.
+   Ici : bordures dégradées, pages, timeline, fenêtre modale...
+   Breakpoints identiques à ceux configurés dans index.html :
+   580px, 768px, 1024px, 1250px.
+   ========================================================== */
+
+::selection { background: hsl(45, 100%, 72%); color: hsl(0, 0%, 7%); }
+:focus-visible { outline: 2px solid hsl(45, 100%, 72%); }
+
+/* ----- Grandes cartes (barre latérale et pages) ----- */
+.panel {
+  background: hsl(240, 2%, 12%);
+  border: 1px solid hsl(0, 0%, 22%);
+  border-radius: 20px;
+  padding: 15px;
+  box-shadow: -4px 8px 24px hsla(0, 0%, 0%, 0.25);
+}
+@media (min-width: 580px)  { .panel { width: 520px; margin-inline: auto; padding: 30px; } }
+@media (min-width: 768px)  { .panel { width: 700px; } }
+@media (min-width: 1024px) { .panel { width: 950px; } }
+@media (min-width: 1250px) { .panel { width: auto; } }
+
+/* ----- Carte à bordure dégradée -----
+   Astuce : le ::before est un calque posé 1px à l'intérieur ; il laisse
+   apparaître 1px du dégradé du fond, qui joue le rôle de bordure. */
+.card {
+  position: relative;
+  z-index: 1;
+  background: linear-gradient(to bottom right, hsl(0, 0%, 25%), hsla(0, 0%, 25%, 0) 50%);
+  border-radius: 14px;
+  box-shadow: 0 16px 30px hsla(0, 0%, 0%, 0.25);
+}
+.card::before {
+  content: "";
+  position: absolute;
+  inset: 1px;
+  z-index: -1;
+  border-radius: inherit;
+  background: linear-gradient(to bottom right, hsla(240, 1%, 18%, 0.25), hsla(240, 2%, 11%, 0)), hsl(240, 2%, 13%);
+}
+
+/* Petit carré d'icône (se combine avec .card) */
+.icon-box {
+  display: grid;
+  place-items: center;
+  flex-shrink: 0;
+  width: 30px; height: 30px;
+  border-radius: 8px;
+  font-size: 16px;
+  color: hsl(45, 100%, 72%);
+}
+@media (min-width: 580px) { .icon-box { width: 48px; height: 48px; border-radius: 12px; font-size: 18px; } }
+
+/* Titre de page avec petit trait jaune dessous */
+.title-bar { position: relative; padding-bottom: 7px; margin-bottom: 30px; }
+.title-bar::after {
+  content: "";
+  position: absolute; left: 0; bottom: 0;
+  width: 30px; height: 3px; border-radius: 3px;
+  background: linear-gradient(to right, hsl(45, 100%, 72%), hsl(35, 100%, 68%));
+}
+@media (min-width: 580px) { .title-bar { padding-bottom: 15px; } .title-bar::after { width: 40px; height: 5px; } }
+
+/* ----- Barre latérale : repliée sur mobile, dépliée par le bouton (classe is-open) ----- */
+.sidebar { max-height: 7rem; overflow: hidden; transition: max-height 0.5s ease-in-out; }
+.sidebar.is-open { max-height: 26rem; }
+.sidebar-more { opacity: 0; visibility: hidden; transition: 0.5s ease-in-out; }
+.sidebar.is-open .sidebar-more { opacity: 1; visibility: visible; }
+@media (min-width: 580px) { .sidebar { max-height: 11rem; } .sidebar.is-open { max-height: 36rem; } }
+@media (min-width: 1250px) {
+  /* Sur grand écran : toujours dépliée, collée en haut pendant le défilement */
+  .sidebar { max-height: none; flex: 1; position: sticky; top: 60px; align-self: flex-start; padding-top: 60px; }
+  .sidebar-more { opacity: 1; visibility: visible; }
+}
+
+/* ----- Pages et menu : seule la page "is-active" est visible ----- */
+.page { display: none; }
+.page.is-active { display: block; animation: fade 0.5s ease backwards; }
+@keyframes fade { from { opacity: 0; } to { opacity: 1; } }
+
+.nav-link { color: hsl(0, 0%, 84%); font-size: 12px; padding: 20px 7px; transition: color 0.25s; }
+.nav-link:hover { color: hsla(0, 0%, 84%, 0.7); }
+.nav-link.is-active { color: hsl(45, 100%, 72%); }
+@media (min-width: 580px)  { .nav-link { font-size: 14px; } }
+@media (min-width: 1024px) { .nav-link { font-weight: 500; } }
+
+/* ----- Timeline (CV) : ligne verticale + point jaune devant chaque élément ----- */
+.timeline { margin-left: 45px; font-size: 14px; }
+.timeline li { position: relative; }
+.timeline li:not(:last-child) { margin-bottom: 20px; }
+.timeline li:not(:last-child)::before {
+  content: ""; position: absolute; top: -25px; left: -30px;
+  width: 1px; height: calc(100% + 50px); background: hsl(0, 0%, 22%);
+}
+.timeline li::after {
+  content: ""; position: absolute; top: 5px; left: -33px;
+  width: 6px; height: 6px; border-radius: 50%;
+  background: linear-gradient(to right, hsl(45, 100%, 72%), hsl(35, 100%, 68%));
+  box-shadow: 0 0 0 4px hsl(0, 0%, 22%);
+}
+.timeline h4 { color: hsl(0, 0%, 98%); font-size: 14px; line-height: 1.3; margin-bottom: 7px; }
+.timeline span { display: block; color: hsl(45, 54%, 58%); line-height: 1.6; }
+.timeline p { color: hsl(0, 0%, 84%); font-weight: 300; line-height: 1.6; }
+@media (min-width: 580px) {
+  .timeline { margin-left: 65px; font-size: 15px; }
+  .timeline h4 { font-size: 15px; }
+  .timeline li:not(:last-child)::before { left: -40px; }
+  .timeline li::after { width: 8px; height: 8px; left: -43px; }
+}
+
+/* ----- Filtres du portfolio ----- */
+.filter-btn { color: hsl(0, 0%, 84%); font-size: 15px; margin-right: 25px; transition: color 0.25s; }
+.filter-btn:hover { color: hsla(0, 0%, 84%, 0.7); }
+.filter-btn.is-active { color: hsl(45, 100%, 72%); }
+
+/* ----- Fenêtre modale : cachée, affichée avec la classe is-open ----- */
+.modal { position: fixed; inset: 0; z-index: 20; display: none; place-items: center; overflow-y: auto; }
+.modal.is-open { display: grid; }
+.modal-overlay { position: fixed; inset: 0; background: hsla(0, 0%, 5%, 0.8); }
+
+/* Barre de défilement jaune des témoignages */
+.has-scrollbar::-webkit-scrollbar { height: 5px; }
+.has-scrollbar::-webkit-scrollbar-track { background: hsl(240, 1%, 17%); border-radius: 5px; }
+.has-scrollbar::-webkit-scrollbar-thumb { background: hsl(45, 100%, 72%); border-radius: 5px; }
