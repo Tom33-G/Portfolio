@@ -52,7 +52,7 @@
 
         <div>
           <h1 class="mb-2.5 whitespace-nowrap text-[17px] font-medium tracking-tight text-white/95 sm:mb-4 sm:text-[26px] xl:text-center">Tom Gral</h1>
-          <p class="w-max rounded-lg bg-onyx px-3 py-[3px] text-[11px] font-light text-white sm:px-[18px] sm:py-[5px] sm:text-xs xl:mx-auto">Data Analyst | Chef de Projet</p>
+          <p class="w-max rounded-lg bg-onyx px-3 py-[3px] text-[11px] font-light text-white sm:px-[18px] sm:py-[5px] sm:text-xs xl:mx-auto">Data Analyst | Data Engineer</p>
         </div>
 
         <!-- Bouton déplier/replier (caché sur grand écran avec xl:hidden) -->
@@ -66,7 +66,7 @@
       <div class="sidebar-more">
         <hr class="my-4 border-jet sm:my-8">
 
-        <ul class="grid gap-4 md:grid-cols-2 md:gap-x-4 md:gap-y-8 xl:grid-cols-1">
+        <ul class="grid gap-4">
           <li class="flex items-center gap-4">
             <div class="card icon-box"><ion-icon name="mail-outline" aria-hidden="true"></ion-icon></div>
             <div class="min-w-0">
@@ -74,28 +74,13 @@
               <a href="mailto:tom.gral.gt@mail.com" class="block truncate text-[13px] font-light text-white/95 sm:text-[15px] xl:text-sm">tom.gral.gt@mail.com</a>
             </div>
           </li>
-          <li class="flex items-center gap-4">
-            <div class="card icon-box"><ion-icon name="calendar-outline" aria-hidden="true"></ion-icon></div>
-            <div>
-              <p class="mb-0.5 text-[11px] uppercase text-soft/70 sm:text-xs">Date de naissance</p>
-              <time datetime="2002-06-13" class="text-[13px] font-light text-white/95 sm:text-[15px] xl:text-sm">13 juin 2002</time>
-            </div>
-          </li>
-          <li class="flex items-center gap-4">
-            <div class="card icon-box"><ion-icon name="location-outline" aria-hidden="true"></ion-icon></div>
-            <div>
-              <p class="mb-0.5 text-[11px] uppercase text-soft/70 sm:text-xs">Localisation</p>
-              <address class="text-[13px] font-light not-italic text-white/95 sm:text-[15px] xl:text-sm">Bordeaux, France</address>
-            </div>
-          </li>
         </ul>
 
         <hr class="my-4 border-jet sm:my-8 xl:opacity-0">
 
         <!-- aria-label : nom du lien pour les lecteurs d'écran (une icône seule n'a pas de texte) -->
-        <ul class="flex gap-4 pl-2 text-lg text-soft/70 xl:justify-center">
-          <li><a href="https://www.linkedin.com/in/tom-gral-715733233/" target="_blank" rel="noopener noreferrer" aria-label="LinkedIn" class="hover:text-soft"><ion-icon name="logo-linkedin" aria-hidden="true"></ion-icon></a></li>
-        </ul>
+        <ul class="flex items-center gap-4 pl-2 text-lg text-soft/70 xl:justify-center">
+          <li><a href="https://www.linkedin.com/in/tom-gral-715733233/" target="_blank" rel="noopener noreferrer" aria-label="LinkedIn" class="block text-[32px] hover:text-soft"><ion-icon name="logo-linkedin" aria-hidden="true"></ion-icon></a></li>        </ul>
       </div>
     </aside>
 
@@ -116,10 +101,10 @@
       <article class="panel page is-active xl:min-h-full" data-page="a-propos">
         <h2 class="title-bar text-2xl font-semibold capitalize text-white/95 sm:text-[32px]">À propos de moi</h2>
 
-        <!-- Texte à mettre à jour : le CV indique un master CY Tech terminé en 2025 -->
         <section class="mb-10 space-y-4 text-[15px] font-light leading-relaxed text-soft">
-          <p>Étudiant en Master 2 MIAGE à l'Université de Bordeaux, je suis passionné par la data, l'automatisation des processus et la gestion de projet. Mon objectif est de transformer les données en leviers stratégiques pour l'entreprise.</p>
-          <p>Fort de deux ans d'alternance et d'un stage, j'ai dirigé plusieurs projets de visualisation de données, d'automatisation de reporting et d'implémentation de solutions IA. Je suis aujourd'hui motivé pour contribuer à des projets innovants en France ou à l'international.</p>
+          <p>Diplômé d'un Master MIAGE (spécialisation BI &amp; gestion de projet) et fort de deux ans d'alternance chez Sabena Technics, je transforme des données brutes en outils fiables qui aident à décider : tableaux de bord, pipelines de données et automatisations. Je recherche un poste de <strong class="font-medium text-white/95">Data Analyst</strong> ou de <strong class="font-medium text-white/95">Data Engineer</strong>.</p>
+          <p>Chez Sabena Technics, j'ai conçu une interface Power BI reliant les départements Chiffrage et Engineering (+10 % de précision sur les estimations d'heures, soit environ 1,5 M€ de coûts mieux anticipés) et structuré plus de 300 000 heures de production pour l'analyse. Mes outils sont utilisés au quotidien par plus de 30 collaborateurs.</p>
+          <p>Je développe aussi mes propres projets, comme une plateforme d'analyse sportive dotée d'un assistant IA (RAG). Je suis motivé pour rejoindre une équipe data en France ou à l'international.</p>
         </section>
 
         <!-- Services : 1 colonne sur mobile, 2 à partir de lg ; icône à gauche dès sm -->
@@ -128,80 +113,98 @@
           <ul class="grid gap-5 lg:grid-cols-2 lg:gap-x-6">
             <li class="card p-5 text-center sm:flex sm:items-start sm:gap-[18px] sm:p-[30px] sm:text-left">
               <img src="./assets/images/icon-analyses.svg" alt="" width="40" class="mx-auto mb-2.5 sm:mx-0 sm:mt-1 sm:shrink-0">
-              <div><h4 class="mb-2 text-base text-white/95 sm:text-lg">Analyse de données</h4>
-              <p class="text-[15px] leading-relaxed text-soft">Création de dashboards interactifs, visualisation de données avec Power BI et automatisation de reporting pour améliorer la prise de décision.</p></div>
+              <div><h4 class="mb-2 text-base text-white/95 sm:text-lg">Analyse &amp; BI</h4>
+              <p class="text-[15px] leading-relaxed text-soft">Tableaux de bord Power BI (DAX), KPI et reporting qui rendent les chiffres lisibles et aident à prendre les bonnes décisions.</p></div>
             </li>
             <li class="card p-5 text-center sm:flex sm:items-start sm:gap-[18px] sm:p-[30px] sm:text-left">
               <img src="./assets/images/icon-automation.svg" alt="" width="40" class="mx-auto mb-2.5 sm:mx-0 sm:mt-1 sm:shrink-0">
-              <div><h4 class="mb-2 text-base text-white/95 sm:text-lg">Automatisation de processus</h4>
-              <p class="text-[15px] leading-relaxed text-soft">Développement de scripts Python/VBA pour réduire le temps de traitement manuel et améliorer l'efficacité opérationnelle.</p></div>
+              <div><h4 class="mb-2 text-base text-white/95 sm:text-lg">Data engineering</h4>
+              <p class="text-[15px] leading-relaxed text-soft">Modélisation de données, flux d'alimentation (SQL, Talend, Python) et qualité des données pour des analyses fiables.</p></div>
             </li>
             <li class="card p-5 text-center sm:flex sm:items-start sm:gap-[18px] sm:p-[30px] sm:text-left">
               <img src="./assets/images/icon-project.svg" alt="" width="40" class="mx-auto mb-2.5 sm:mx-0 sm:mt-1 sm:shrink-0">
-              <div><h4 class="mb-2 text-base text-white/95 sm:text-lg">Gestion de projet</h4>
-              <p class="text-[15px] leading-relaxed text-soft">Encadrement de projets web et data, rédaction de documentation, pilotage agile, communication client et coordination d'équipe.</p></div>
+              <div><h4 class="mb-2 text-base text-white/95 sm:text-lg">Gestion de projet &amp; méthodes agiles</h4>
+              <p class="text-[15px] leading-relaxed text-soft">Travail avec les équipes métiers, pilotage Agile (Scrum, Jira) et outils livrés qui répondent à un vrai besoin.</p></div>
             </li>
             <li class="card p-5 text-center sm:flex sm:items-start sm:gap-[18px] sm:p-[30px] sm:text-left">
               <img src="./assets/images/icon-ml.svg" alt="" width="40" class="mx-auto mb-2.5 sm:mx-0 sm:mt-1 sm:shrink-0">
-              <div><h4 class="mb-2 text-base text-white/95 sm:text-lg">Machine Learning</h4>
-              <p class="text-[15px] leading-relaxed text-soft">Réalisation de prototypes de modèles machine learning (vision par ordinateur, classification) pour des cas métiers ciblés.</p></div>
+              <div><h4 class="mb-2 text-base text-white/95 sm:text-lg">IA appliquée à la data</h4>
+              <p class="text-[15px] leading-relaxed text-soft">Assistants LLM / RAG (LangChain, Text-to-SQL) pour interroger des données en langage naturel.</p></div>
             </li>
           </ul>
         </section>
-
       </article>
 
       <!-- ---------- PAGE : CV ---------- -->
+      <!-- Ordre identique à tes CV : Expériences, Projets, Formation, Compétences -->
       <article class="panel page xl:min-h-full" data-page="cv">
         <h2 class="title-bar text-2xl font-semibold capitalize text-white/95 sm:text-[32px]">Parcours</h2>
 
         <section class="mb-8">
-          <div class="mb-6 flex items-center gap-4">
-            <div class="card icon-box"><ion-icon name="book-outline" aria-hidden="true"></ion-icon></div>
-            <h3 class="text-lg capitalize text-white/95 sm:text-2xl">Formation</h3>
-          </div>
-          <!-- <ol> = liste ordonnée, adaptée à une chronologie (style : .timeline dans style.css) -->
-          <ol class="timeline">
-            <li>
-              <h4>Master MIAGE – Méthodes Informatiques Appliquées à la Gestion des Entreprises, CY Tech</h4>
-              <span>Sep 2023 — Oct 2025</span>
-              <p>Spécialisation en Data/IA. Études centrées sur les systèmes d'information, l'analyse de données, la BI, la gestion de projet informatique, la finance d'entreprise et le marketing.</p>
-            </li>
-            <li>
-              <h4>Licence MIAGE – Méthodes Informatiques Appliquées à la Gestion des Entreprises, Université de Bordeaux</h4>
-              <span>Sep 2020 — Août 2023</span>
-              <p>Formation en modélisation statistique, programmation avancée, systèmes de bases de données, comptabilité financière et structures de données.</p>
-            </li>
-          </ol>
-        </section>
-
-        <section>
           <div class="mb-6 flex items-center gap-4">
             <div class="card icon-box"><ion-icon name="briefcase-outline" aria-hidden="true"></ion-icon></div>
             <h3 class="text-lg capitalize text-white/95 sm:text-2xl">Expérience professionnelle</h3>
           </div>
           <ol class="timeline">
             <li>
-              <h4>Chargé d'automatisation et d'analyse de données (alternance) – Sabena Technics</h4>
+              <h4>Alternant Data Analyst / Data Engineer – Sabena Technics</h4>
               <span>Sep 2023 — Oct 2025</span>
-              <p>Pilotage d’un projet d’automatisation ayant permis d’augmenter le nombre de chantiers suivis de 10 à 30. Développement d’un tableau de bord pour le suivi en temps réel de la charge de travail et création d’indicateurs diffusés à plus de 50 collaborateurs.</p>
+              <p>Conception et déploiement d'une interface Power BI (DAX, SQL, Talend) reliant les départements Chiffrage et Engineering : +10 % de précision sur les estimations d'heures, soit environ 1,5 M€ de coûts mieux anticipés. Modélisation et fiabilisation de plus de 300 000 heures de production (KPI, suivi d'activité). Développement d'un outil de planification utilisé quotidiennement par 30+ collaborateurs et d'indicateurs de charge (50+ employés, 2 ans d'historique) qui appuient les arbitrages de recrutement du DAF.</p>
             </li>
             <li>
-              <h4>Développeur de solutions d’automatisation (stage) – Sabena Technics</h4>
+              <h4>Stagiaire Optimisation de données – Sabena Technics</h4>
               <span>Avr 2023 — Juin 2023</span>
-              <p>Automatisation de l’affectation des charges de travail via VBA, réduisant le temps de traitement de 4 heures à 10 secondes. Création d’un système capable de gérer plusieurs scénarios par jour avec mises à jour en temps réel.</p>
-            </li>
-            <li>
-              <h4>Preuve de concept – Machine Learning et Vision par Ordinateur</h4>
-              <span>Nov 2023 — Avr 2024</span>
-              <p>Développement d’un prototype de vision par ordinateur pour la classification d’images, atteignant un taux de précision de 95 % sur les données de test.</p>
-            </li>
-            <li>
-              <h4>Trésorier – Junior MIAGE Concept</h4>
-              <span>Fév 2023 — Mar 2024</span>
-              <p>Gestion d’un budget de 20 000 €, garantissant une allocation optimale et une responsabilité financière rigoureuse pour l’organisation étudiante.</p>
+              <p>Automatisation de l'allocation des tâches via un outil VBA : temps de traitement réduit de 5 h à 30 min pour les managers.</p>
             </li>
           </ol>
+        </section>
+
+        <section class="mb-8">
+          <div class="mb-6 flex items-center gap-4">
+            <div class="card icon-box"><ion-icon name="code-slash-outline" aria-hidden="true"></ion-icon></div>
+            <h3 class="text-lg capitalize text-white/95 sm:text-2xl">Projets data &amp; portfolio</h3>
+          </div>
+          <ol class="timeline">
+            <li>
+              <h4>AI-Driven Performance Engine – Plateforme data &amp; IA sportive</h4>
+              <span>2026</span>
+              <p>Pipeline de données (Python, SQL, DuckDB) pour ingérer, nettoyer et analyser des données sportives, avec KPI de charge et de risque de blessure. Assistant IA / RAG (LangChain, Text-to-SQL) pour interroger les indicateurs en langage naturel, et tableau de bord interactif (Streamlit, Plotly). Stack : Python, DuckDB, LangChain, Streamlit, Docker.</p>
+            </li>
+          </ol>
+        </section>
+
+        <section class="mb-8">
+          <div class="mb-6 flex items-center gap-4">
+            <div class="card icon-box"><ion-icon name="book-outline" aria-hidden="true"></ion-icon></div>
+            <h3 class="text-lg capitalize text-white/95 sm:text-2xl">Formation</h3>
+          </div>
+          <ol class="timeline">
+            <li>
+              <h4>Master MIAGE – Spécialisation BI &amp; Gestion de projet, Université de Bordeaux</h4>
+              <span>2023 — 2025</span>
+              <p>Architecture data, modélisation de bases de données, gestion de projet IT (Agile).</p>
+            </li>
+            <li>
+              <h4>Licence MIAGE, Université de Bordeaux</h4>
+              <span>2020 — 2023</span>
+              <p>Major de promotion : classé 1er sur 32.</p>
+            </li>
+          </ol>
+        </section>
+
+        <section class="">
+          <div class="mb-6 flex items-center gap-4">
+            <div class="card icon-box"><ion-icon name="construct-outline" aria-hidden="true"></ion-icon></div>
+            <h3 class="text-lg capitalize text-white/95 sm:text-2xl">Compétences techniques</h3>
+          </div>
+          <ul class="card space-y-4 p-5 sm:p-[30px]">
+            <li><h5 class="mb-1 text-sm font-medium text-white/95">Analyse &amp; BI</h5><p class="text-sm font-light leading-relaxed text-soft">Power BI (DAX), conception de KPI, data visualisation, tableaux de bord, reporting</p></li>
+            <li><h5 class="mb-1 text-sm font-medium text-white/95">Langages &amp; données</h5><p class="text-sm font-light leading-relaxed text-soft">SQL, Python, DuckDB, Excel avancé, VBA</p></li>
+            <li><h5 class="mb-1 text-sm font-medium text-white/95">Data engineering</h5><p class="text-sm font-light leading-relaxed text-soft">ETL (Talend), modélisation de données, pipelines, intégration d'API, qualité des données</p></li>
+            <li><h5 class="mb-1 text-sm font-medium text-white/95">IA appliquée à la data</h5><p class="text-sm font-light leading-relaxed text-soft">LLM (Claude, GPT), RAG, LangChain, prompt engineering</p></li>
+            <li><h5 class="mb-1 text-sm font-medium text-white/95">Outils &amp; méthodes</h5><p class="text-sm font-light leading-relaxed text-soft">Git/GitHub, Jira, méthodes Agiles (Scrum), collaboration avec les équipes métiers</p></li>
+            <li><h5 class="mb-1 text-sm font-medium text-white/95">Langues</h5><p class="text-sm font-light leading-relaxed text-soft">Français (natif), anglais courant (TOEIC 865, B2)</p></li>
+          </ul>
         </section>
       </article>
 
@@ -216,22 +219,6 @@
 
     </div>
   </main>
-
-  <!-- Fenêtre des témoignages : cachée, remplie et affichée par script.js -->
-  <div class="modal" data-modal>
-    <div class="modal-overlay" data-modal-close></div>
-    <section class="relative z-10 m-4 w-full max-w-[680px] gap-6 rounded-[20px] border border-jet bg-eerie p-5 shadow-2xl sm:flex sm:gap-9 sm:p-[30px]">
-      <button class="absolute right-4 top-4 grid h-8 w-8 place-items-center rounded-lg bg-onyx text-lg text-white/95 opacity-70 hover:opacity-100"
-              data-modal-close aria-label="Fermer"><ion-icon name="close-outline" aria-hidden="true"></ion-icon></button>
-      <figure class="mb-4 w-max shrink-0 rounded-[18px] bg-onyx sm:mb-0">
-        <img src="./assets/images/avatar-1.png" alt="" class="w-20" data-modal-img>
-      </figure>
-      <div>
-        <h4 class="mb-1 text-lg capitalize text-white/95" data-modal-title></h4>
-        <p class="text-[15px] font-light leading-relaxed text-soft" data-modal-text></p>
-      </div>
-    </section>
-  </div>
 
   <!-- ORDRE IMPORTANT : projects.js (les données) AVANT script.js (qui les utilise) -->
   <script src="./assets/js/projects.js"></script>

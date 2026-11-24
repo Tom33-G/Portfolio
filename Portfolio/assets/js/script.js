@@ -3,7 +3,7 @@
 /* ==========================================================
    SCRIPT.JS : le comportement de la page
    1. Barre latérale (mobile)  2. Navigation entre les pages
-   3. Fenêtre des témoignages  4. Projets (injectés depuis projects.js)
+   3. Projets (injectés depuis projects.js)
 
    Repère : les attributs data-xxx du HTML sont des "poignées" :
    on les retrouve ici avec document.querySelector("[data-xxx]").
@@ -35,32 +35,7 @@ function showPage(name) {
 navButtons.forEach(btn => btn.addEventListener('click', () => showPage(btn.dataset.nav)));
 
 
-/* ---------- 3. FENÊTRE (MODALE) DES TÉMOIGNAGES ---------- */
-const modal = document.querySelector('[data-modal]');
-
-function openModal(card) {
-  // On recopie dans la fenêtre l'avatar, le nom et le texte de la carte cliquée.
-  // textContent (et non innerHTML) : le texte est inséré tel quel, sans risque.
-  const avatar = card.querySelector('img');
-  modal.querySelector('[data-modal-img]').src = avatar.src;
-  modal.querySelector('[data-modal-img]').alt = avatar.alt;
-  modal.querySelector('[data-modal-title]').textContent = card.querySelector('h4').textContent;
-  modal.querySelector('[data-modal-text]').textContent = card.querySelector('p').textContent;
-  modal.classList.add('is-open');
-}
-
-const closeModal = () => modal.classList.remove('is-open');
-
-document.querySelectorAll('[data-testimonial]')
-  .forEach(card => card.addEventListener('click', () => openModal(card)));
-
-// Fermeture : bouton ✕, clic sur le fond sombre (tous deux ont data-modal-close), touche Échap
-modal.querySelectorAll('[data-modal-close]')
-  .forEach(el => el.addEventListener('click', closeModal));
-document.addEventListener('keydown', event => { if (event.key === 'Escape') closeModal(); });
-
-
-/* ---------- 4. PROJETS ---------- */
+/* ---------- 3. PROJETS ---------- */
 const projectList = document.querySelector('[data-project-list]');
 const filterBar = document.querySelector('[data-filters]');
 
